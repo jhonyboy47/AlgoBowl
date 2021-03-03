@@ -1,0 +1,3 @@
+C:/Users/Jhonathan's PC/Desktop/Classes/Algorithms/Projects/AlgoBowl/Code/cmake-build-debug/CMakeFiles/Code.dir
+C:/Users/Jhonathan's PC/Desktop/Classes/Algorithms/Projects/AlgoBowl/Code/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Jhonathan's PC/Desktop/Classes/Algorithms/Projects/AlgoBowl/Code/cmake-build-debug/CMakeFiles/rebuild_cache.dir

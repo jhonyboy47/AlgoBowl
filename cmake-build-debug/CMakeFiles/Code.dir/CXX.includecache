@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/Jhonathan's PC/Desktop/Classes/Algorithms/Projects/AlgoBowl/Code/main.cpp
+iostream
+-
+utility
+-
+vector
+-
+
