@@ -1,16 +1,81 @@
 #include <iostream>
-#include <utility>
 #include <vector>
+#include <fstream>
+#include <set>
 using namespace std;
 /*    arr - array to store the combination
     index - next location in array
     num - given number
     reducedNum - reduced number */
 
-struct addPair {
+class addPair {
+public:
+    int result;
     int num1;
     int num2;
 };
+void findCombinations(int n, vector<addPair> &outputVector);
+void findCombinationsUtil(int arr[], vector<addPair> &outputVector, int index, int num, int reducedNum);
+void addPairResult( addPair& tempAddPair);
+bool checkDuplicates( vector <addPair> vec, addPair tempAddPair);
+
+
+
+
+// Driver code
+int main()
+{
+    int n = 5;
+
+    ifstream inputFile("inputFile0.txt");
+//    if ( !inputFile.is_open()){
+//
+//        cerr << "Could not open output file" << endl;
+//    }
+//
+//    int numOfValues;
+//    inputFile >> numOfValues;
+    vector<int> inputVector = {10};
+//    int counter = 0;
+//    int intBuffer;
+//    while( counter < numOfValues ){
+//
+//        numOfValues >> intBuffer;
+//
+//        inputVector.push_back(numOfValues);
+//    }
+//
+//    inputFile.close();
+
+    vector <addPair> outputVector;
+    for (int i = 0; i < inputVector.size(); ++i) {
+        findCombinations(inputVector.at(i), outputVector);
+
+    }
+
+    cout << outputVector.at(0).num1 << " ";
+    cout << outputVector.at(0).num2;
+    cout << endl;
+
+    set <addPair> outputSet;
+    //TODO: We must ensure uniquenes here!
+    for (auto pair: outputVector) {
+        cout << pair.num1;
+        cout << " ";
+        cout << pair.num2;
+        cout << endl;
+        outputSet.insert(pair);
+    }
+
+//
+//    for (auto pair: outputSet){
+//        cout << pair.num1 << " " << pair.num2 << endl;
+//    }
+//    cout << outputVector.size();
+
+    return 0;
+}
+
 void findCombinationsUtil(int arr[], vector<addPair> &outputVector, int index, int num, int reducedNum)
 {
     // Base condition
@@ -30,7 +95,13 @@ void findCombinationsUtil(int arr[], vector<addPair> &outputVector, int index, i
         if (counter == 2){
             sumToTarget.num1 = arr[0];
             sumToTarget.num2 = arr[1];
-            outputVector.push_back(sumToTarget);
+            addPairResult(sumToTarget);
+
+            if(!checkDuplicates(outputVector, sumToTarget)) {
+                findCombinations(sumToTarget.num1, outputVector);
+                findCombinations(sumToTarget.num2, outputVector);
+                outputVector.push_back(sumToTarget);
+            }
         }
         return;
     }
@@ -71,21 +142,18 @@ void findCombinations(int n, vector<addPair> &outputVector)
 //    }
 }
 
-// Driver code
-int main()
-{
-    int n = 5;
-    vector<addPair> outputVector;
+void addPairResult( addPair& tempAddPair){
+    tempAddPair.result = tempAddPair.num1 + tempAddPair.num2;
+}
 
-    findCombinations(n, outputVector);
+bool checkDuplicates( vector <addPair> vec, addPair tempAddPair){
 
-//    for (int i = 0; i < outputVector.size(); i++) {
-//        cout << outputVector.at(i).num1 + " " + outputVector.at(i).num2;
-//    }
-    cout << outputVector.at(0).num1 << " ";
-    cout << outputVector.at(0).num2;
-    cout << endl;
-//    cout << outputVector.size();
+    for (auto addPair: vec) {
+        if (addPair.num1 == tempAddPair.num1 && addPair.num2 == tempAddPair.num2){
+            return true;
+        }
 
-    return 0;
+    }
+
+    return false;
 }
