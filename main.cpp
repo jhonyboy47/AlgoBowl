@@ -25,9 +25,10 @@ bool checkDuplicates( vector <addPair> vec, addPair tempAddPair);
 // Driver code
 int main()
 {
-    int n = 5;
 
     ifstream inputFile("inputFile0.txt");
+
+    //TODO: Finish up file input ( preferrably after code functionality is done
 //    if ( !inputFile.is_open()){
 //
 //        cerr << "Could not open output file" << endl;
@@ -35,7 +36,7 @@ int main()
 //
 //    int numOfValues;
 //    inputFile >> numOfValues;
-    vector<int> inputVector = {10};
+    vector<int> inputVector = {2,5,10};
 //    int counter = 0;
 //    int intBuffer;
 //    while( counter < numOfValues ){
@@ -47,57 +48,51 @@ int main()
 //
 //    inputFile.close();
 
+    //Holds all of the combinations for numbers that up to the numbers listed in inputVector
     vector <addPair> outputVector;
     for (int i = 0; i < inputVector.size(); ++i) {
         findCombinations(inputVector.at(i), outputVector);
-
     }
 
     cout << outputVector.at(0).num1 << " ";
     cout << outputVector.at(0).num2;
     cout << endl;
 
-    set <addPair> outputSet;
-    //TODO: We must ensure uniquenes here!
+    //Outputs to the contents of outputVector to the console!
     for (auto pair: outputVector) {
         cout << pair.num1;
         cout << " ";
         cout << pair.num2;
         cout << endl;
-        outputSet.insert(pair);
     }
 
-//
-//    for (auto pair: outputSet){
-//        cout << pair.num1 << " " << pair.num2 << endl;
-//    }
-//    cout << outputVector.size();
 
     return 0;
 }
 
+//Finds all possible combinations that add up num
 void findCombinationsUtil(int arr[], vector<addPair> &outputVector, int index, int num, int reducedNum)
 {
     // Base condition
-    if (reducedNum < 0)
-        return;
+    if (reducedNum < 0) return;
 
-    // If combination is found, print it
+    // If combination is found add it to our outputVector
     if (reducedNum == 0)
     {
+        //We only want the valued addition hence the counter without this the code would add all of the additions that add up to num
         int counter = 0;
         addPair sumToTarget;
         for (int i = 0; i < index; i++) {
             counter++;
-//            cout << arr[i] << " ";
         }
-//        cout << endl << counter << endl;
+
+        //Checking it is an addition of two values
         if (counter == 2){
+
             sumToTarget.num1 = arr[0];
             sumToTarget.num2 = arr[1];
-            addPairResult(sumToTarget);
-
             if(!checkDuplicates(outputVector, sumToTarget)) {
+                addPairResult(sumToTarget);
                 findCombinations(sumToTarget.num1, outputVector);
                 findCombinations(sumToTarget.num2, outputVector);
                 outputVector.push_back(sumToTarget);
@@ -131,15 +126,11 @@ void findCombinations(int n, vector<addPair> &outputVector)
     // array to store the combinations
     // It can contain max n elements
     int arr[n];
+
     //find all combinations
     findCombinationsUtil(arr, outputVector, 0, n, n);
 
 
-//    for (int i = 0; i < outputVector.size(); ++i) {
-//
-//        cout << outputVector[i].num1 + " " + outputVector[i].num2;
-//
-//    }
 }
 
 void addPairResult( addPair& tempAddPair){
